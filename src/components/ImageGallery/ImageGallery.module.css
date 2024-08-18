@@ -1,0 +1,16 @@
+.itemGallery{
+    width: 1240px;
+    margin: 0 auto;
+}
+.gallery{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    list-style: none;
+}
+.item{
+    max-width: 100%;
+    width: calc((100% - 40px) / 3);
+}
