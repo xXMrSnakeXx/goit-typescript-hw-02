@@ -6,18 +6,18 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
-import Loader from '../Loader/Loader'
+import Loader from '../Loader/Loader';
+import { Image } from '../../apiService/photos';
 
-
-export default function App() {
-const [query, setQuery] = useState('');
-const [images, setImages] = useState([]);
-const [page, setPage] = useState(1);
-const [isLoading, setIsLoading] = useState(false);
-const [error, setError] = useState(null);
-const [totalImage, setTotalImage] = useState(null);
-const [showBtn, setShowBtn] = useState(false);
-const [noResults, setNoResults] = useState(false);
+const App: React.FC = () => {
+const [query, setQuery] = useState<string>('');
+const [images, setImages] = useState<Image[]>([]);
+const [page, setPage] = useState<number>(1);
+const [isLoading, setIsLoading] = useState<boolean>(false);
+const [error, setError] = useState<string | null>(null);
+const [totalImage, setTotalImage] = useState<Image | null>(null);
+const [showBtn, setShowBtn] = useState<boolean>(false);
+const [noResults, setNoResults] = useState<boolean>(false);
 
 useEffect(() => { 
     if (!query) return; 
@@ -33,7 +33,7 @@ useEffect(() => {
                 setNoResults(true);
             } else{
                 setImages(prev => [...prev, ...data.results]);
-                setShowBtn(data.total_pages && data.total_pages !== page);
+                setShowBtn(data.total_pages > page);
             }
           
         } catch (error) {
@@ -45,7 +45,7 @@ useEffect(() => {
     getImages();
 }, [query, page]);
 
-    const handleOnSubmit = (query) => {
+    const handleOnSubmit = (query: string) => {
         setQuery(query);
         setImages([]);
         setPage(1);
@@ -55,7 +55,7 @@ useEffect(() => {
         setPage((prevPage) => prevPage + 1);
       }
 
-      const openModal = (image) => {
+      const openModal = (image: Image) => {
         setTotalImage(image);
       }
 
@@ -77,3 +77,5 @@ useEffect(() => {
         </div>
     )
 }
+
+export default App;

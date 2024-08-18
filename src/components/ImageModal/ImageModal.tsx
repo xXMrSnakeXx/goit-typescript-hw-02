@@ -2,7 +2,23 @@ import styles from './ImageModal.module.css';
 import Modal from 'react-modal';
 
 
-export default function ImageModal({isOpen, onClose, image}) {
+interface ImageModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    image: {
+        urls: {
+            regular: string;
+        };
+        alt_description: string;
+        description: string |null;
+        user: {
+            name: string;
+        };
+        likes: number;
+    }
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({isOpen, onClose, image}) => {
     return (
 
 <div>
@@ -22,3 +38,5 @@ export default function ImageModal({isOpen, onClose, image}) {
 
     )
 }
+
+export default ImageModal;
